@@ -1,6 +1,7 @@
 # Grocery Store Sales Precictions
 
-<img src="images/wineimage.png" width="500>
+<img src="images/wineimage.png" width="500">                                       
+                                
 
 # Objective
 ## Build and find the most optimal Machine Learning model to predict future sales for Big Mart.
