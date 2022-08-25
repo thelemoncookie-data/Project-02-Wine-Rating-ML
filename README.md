@@ -1,6 +1,6 @@
 # Grocery Store Sales Precictions
 
-<img src="images/wineimage.png" width="500">                                       
+<img src="images/wineimage.png">                                       
                                 
 
 # Objective
