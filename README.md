@@ -1,54 +1,62 @@
-# Grocery Store Sales Precictions
-
-<img src="images/wineimage.png">                                       
-                                
+# Red Wine Quality Predictions
+<center>
+<img src="images/wineimage.png" width="700">                                       
+</center>                                
 
 # Objective
-## Build and find the most optimal Machine Learning model to predict future sales for Big Mart.
+## Build a machine learning model to predict the quality of wines based on rating.
 
 **Author**: 
 Darlene Phan
 
 ### Business problem:
 
-A small grocery store chain operating locations between 1985 - 2009 are seeking future sales predictions.
+A global wine supplier is looking for a way to rate wines before determining if they should be acquired for their inventory.
 
 ### Data
 - Source: 
-    - https://datahack.analyticsvidhya.com/contest/practice-problem-big-mart-sales-iii/
+    - https://www.kaggle.com/datasets/fedesoriano/spanish-wine-quality-dataset
 #### Data Dictionary:
-| Variable Name      | Description                                                                                       |
+| Col Name           | Description                                                                                       |
 | ------------------ | ------------------------------------------------------------------------------------------------- |
-| item_id            | Unique prodcut ID                                                                                 |
-| item_weight        | Weight of product                                                                                 |
-| item_fat_content   | Whether the product is low fat or regular                                                         |
-| item_visibility    | The percentage of total display area of all products in a store allocated to a particular product |
-| item_type          | The category to which the product belongs                                                         |
-| mrp                | Maximum Retail Price (list price) of the product                                                  |
-| outlet_id          | Unique store ID                                                                                   |
-| est_year           | The year in which store was established                                                           |
-| outlet_size        | The size of the store in terms of ground area covered                                             |
-| loc_type           | The type of area in which the store is located                                                    |
-| outlet_type        | Whether the outlet is a grocery store or some sort of supermarket                                 |
-| item_sales         | Sales of the product in the particular store. This is the target variable to be predicted.        |
+| winery             | Winery Name                                                                                       |
+| wine               | Name of Wine                                                                                      |
+| year               | Year in which the grapes were harvested                                                           |
+| rating             | Average rating given to the wine by the users from 1-5                                            |
+| num_reviews        | Number of users that reviewed the wine                                                            |
+| country            | Country of origin (Spain)                                                                         |
+| region             | Region of the wine                                                                                |
+| price              | Price in Euros                                                                                    |
+| type               | Wine variety                                                                                      |
+| body               | Body score, defined as the richness and weight of the wine in your mouth from 1-5                 |
+| acidity            | Acidity score, defined as wine's "pucker" or tartness; it's what makes a wine refreshing and your tongue salivate and want another sip. from 1-5                                 |
+
 
 #### **Target:**
-- Item Sales    
+- Rating    
 #### **Features:**
-   - Item Fat Content
-   - Item Visibility
-   - Item Type
-   - MRP
-   - Location Type
-   - Outlet Type
+   - Winery
+   - Wine
+   - Year
+   - Num Reviews
+   - Region
+   - Price
+   - Type
+   - Body
+   - Acidity
 
 ## Methods
-- The columns that had missing data accounted between 17% - 28% within their respective columns. These columns were dropped, since they could not contribute much in predicting the item sales. 
-- Columns within the features matrix were either categorical or numerical. After addressing inconsistencies within the categorical columns they were processed using OneHotEncoder to prep for machine learning. Numerical data was scaled. 
-- Visualizations were used for data exploration to identify any correlation (if any) between variables, recognize outliers, display under performing stores, overall item sales, and item sale distribution. 
-- 2 Machine Learning models to identify most optimal item sales projections
-    -   Regresssion Tree
-    -   Linear Regression
+- Data was only imputed for visualizations.
+- Both univariate and multivariate visualizations were used to determine outliers, distribution and patterns.
+- Pipelines and column transformers were used to preprocess both the numerical and categorical data for the respective machine learning models.
+- Machine Learning Models/Technique used:
+    - Linear Regression
+    - Principal Component Analysis (PCA)
+    - Decision Trees (Regression Trees)
+    - Ridge Regression
+    - GridSearchCV
+    - Feature Engineering
+    
 ## Results
 
 ### Data Exploration Visualizations
