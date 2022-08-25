@@ -1,6 +1,6 @@
 # Red Wine Quality Predictions
 <center>
-<img src="images/wineimage.png" width="700">                                       
+<img src="images/wineimage.png" width="800">                                       
 </center>                                
 
 # Objective
@@ -57,70 +57,80 @@ A global wine supplier is looking for a way to rate wines before determining if 
     - GridSearchCV
     - Feature Engineering
     
+
+
+## Before We Dig In...
+<img src="images/donut.png" width="800">
+This next scatterplot will shatter your unconscious bias about wine.
+
+
+> "But Darlene, I don't have any biases when it comes to wine."
+> 
+Oh, but you do. Contrary to popular belief, more expensive does not mean more better. Nor does it mean that older wines == higher price tags. It is very important to note that, although this is funny, there is an article I came across LinkedIn that talks about how our unconcious bias is hindering the growth of Data Science. (linked below)
+
+[Unconscious Bias is Holding Data Science Back. By: Kate Minogue](https://www.linkedin.com/pulse/unconscious-bias-holding-data-science-back-kate-minogue/)
+
 ## Results
-
 ### Data Exploration Visualizations
-<img src="images/outlet_type_hist.png">
+<img src="images/more_better.png"> 
+
+> This scatter plot is a visible indicator that regardless of rating, wines can still be priced similarly. We could even theorize that wine ratings have little effect on how wines are priced.
+
+<img src="images/scatterplot.png">
 
 
+> Due to the unconcious bias surrounding the cost of a wine equating to its age, I've changed the wine year label to 'Vintage'. The four most expensive wine vintages are between 2005-2015. The vintage that is over 100 years old is 1/3rd the price of the top 4 priced wines. There are many factors to why a wine could be priced higher and a lot relies heavily on demand, oak and harvest. I project that due to Covid19 labor shortages since 2020, wine vintages between 2020-2023 will be priced higher than average. <br>
+> [Inflation is driving wine prices higher](https://www.afr.com/policy/economy/inflation-is-driving-wine-prices-higher-20220428-p5ah0l#:~:text=In%20addition%20to%20the%20cost,put%20intense%20pressure%20on%20prices.)
 
 
-> This histogram displays the of Sales Distribution by Outlet type. It allows us to visually compare the sales of the outlet types to the overall sales. 
+<img src="images/acidity_body.png">
+
+> These bar charts exhibit a trend that majority of Spanish wines have higher acidity levels(great for cutting through fatty foods). Along with medium-full body (will hold up against food) and natrually very good mean rating between 4.3 - 4.7. Most wines are enjoyed with food. Since Spanish wines have characteristics that allow them to stand up to food and not be washed out, it's understandable why the majority of these ratings are as high as they are. 
 
 
-<img src="images/item_sales_product_type.png">
+<img src="images/wine_rating.png">
 
-
-
-> This bar chart clearly displays the lowest to highest sale items grouped by product type. This allows us to understand what makes up the majority of our sales and places a magnifying glass on the areas that do not perform as well. 
+> This next figure allows us to see the interrelationship between the wine ratings and how heavily rated they are by customers. For example, both 4.2 and 4.3 rated wines have similar customer reviews. However, 4.2 rated wines have 2/3rds less wines than 4.3. Which leads me to believe that the accuracy on 4.2 wines is much higher. 
 
 
 ## Model
 
-### Hypertuning Regression Tree
-<img src="images/regression_tree.png">
+### Model Recommendation:Linear Regression 2 Model
+<img src="images/pipe.png">
 
 
 
-> The final model is a regression tree. Tree based models have a tendency to overfit(high variance) to the training data. This will result in underfitting(high bias) on the testing data. Therefore, in order to create a model that will better predict on new data, we would have to tune the model. Essentially finding the sweet spot that has both a low variance and a low bias. 
 
-> This visual is after automating the depth ranges of the regression tree model in order to find the most optimal depth. It exhibits that depth five will give us the best R^2 test result. We will be modifying the next regression model based on this result. 
+
+## How was the model built?
+- Model used PCA with n_components set to .95
+- Feature Engineering combining 2 features into a new column
+- Filtered categorical column with the most unique values and only keeping rows that had >= 13 data points
+- Pipeline for OneHot Encoding Categorical data and Standard Scaler on all data
+- Did not impute any missing data
 
 ## Evaluation:
 <img src="images/metrics.png">
+According to our test results the Linear Regression 2 Model had the lower RMSE scores without being overfit to the data. The two models with the best R^2 also had training data that was close in range. I think this is a good indicator that both models were well fitted to the training and the testing data. <br> 
 
--   Once both Linear Regression and Regression Tree models were run, the metrics used to determine their accuracy and realtionship were Root Squared Mean Error (RMSE) and R-Squared (R^2)
 
--   Based on the regression metrics of both models, it's clear that once we addressed the overfitting issue on the Decision Tree training data, the model performed better by roughtly 45%.
+#### Additional Exploration
+Due to the magnitude of unique categorical values in multiple columns, the first Linear Regression model was increidbly overfit on the training data. Because of this, PCA was able to tremedously improve the model on the testing data by colossal amount. Twelve octillion to be exact. <br>
 
--   The implementation of both these models suggest that with some tuning, the Regression Tree performed slightly better than the linear regression model. The R^2 on the Regression Tree suggests that 59% of the target can be realted back to our features data.
+<b>Additional methods to combat large unique categorical values:</b>
+>
+>- <b>Ridge Model:</b> Dropping the largest categorical column
+    - Result: Performance was on par with default Regression Tree Model
+>- <b>Linear Regression 3:</b> Dropping all columns with large unique values
+    - Result: Performed the worst, with the exception of the hugely underfit default Linear Regression Model
 
--   In conclusion, out of the two machine learning models created, the Regression Tree would be the more ideal choice in this scenario.
 
-## Recommendations:
+## Recommendations, Limitations & Next Steps:
+ - Moving onward I would recommend we speak to the client to determine their goals along with how flexible their priorities are. 
+ - Communicate with a domain expert to nail down what other data could be gathered to further improve the model. 
+ - Their expertise would help aid data scientist in properly identifying the target, filtering/data cleaning, feature selection and even picking machine learning models. 
 
-As a veteran of the Hospitality and Food Service industry, based on my experience, I would recommend an additional analysis on the business. In order to do this, it woul require more detailed data from the individual store to understand those key points. 
-
-Since the R^2 score of both models sit below 59%, it tells us that less than 59% of the target predictions(sales) can be explained by our features matrix. 
-
-## Limitations & Next Steps
-
--   Based on the dataset given, there are massive limitations to determine growth within the business. 
-- These would be my next steps in terms of more data collection:
-    -   Monthly or quarterly sales data
-    -   Customer purchasing data (Customer averages)
-    -   Locations of stores. City or suburb? Are they highly densely populated areas?
-    -   Peek Hours of operations
-    
--   Questions to consider when determining data collection:
-    -   Who are my potential customers?
-    -   Who are my competitors?       
-    -   What are my lowest performing items? Why?
-    -   What are my customers asking for?
-
-In summary, there is a lot more we could explore here. A thing to note, just because two of the stores (Out 19 and Out 10) had lower sales, doesn't necessarily mean they performed poorly. If there was more data, it could potentially show that these stores are performing well. 
-
-Maybe these two locations are not in highly populated areas but perform higher than the competition. They have less customers, smaller store and have higher customer sales average. 
+In summary, I think this dataset is a good example of collecting too much and not enough data at the same time. 
 
 
 ### For further information
